@@ -1,0 +1,27 @@
+{
+  "name": "prueba_tecnica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "",
+    "build": "tsc",
+    "start": "npm run build && node --env-file .env build/index.js",
+    "dev": "ts-node-dev --env-file .env src/index.ts"
+  },
+  "keywords": [],
+  "author": "@Javier",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "jest": "29.7.0",
+    "supertest": "7.0.0",
+    "ts-node-dev": "2.0.0",
+    "typescript": "5.5.3"
+  },
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.19.2",
+    "jsonwebtoken": "9.0.2"
+  }
+}
