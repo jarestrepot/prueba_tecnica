@@ -1,4 +1,4 @@
-export enum ConectionData {
+export enum ConnectionData {
   MYSQL="MYSQL",
   MONGO="MONGO",
   SQLITE="SQLITE",
@@ -6,7 +6,7 @@ export enum ConectionData {
 }
 
 export const CONSTANTES = {
-  conections: ConectionData
+  conections: ConnectionData
 }
 
 Object.freeze(CONSTANTES);

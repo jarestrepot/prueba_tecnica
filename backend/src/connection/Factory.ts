@@ -1,5 +1,7 @@
+import { DataSource } from "typeorm";
+
 export interface IFactoryConnectionData {
-  conectar():boolean;
+  conectar(): DataSource;
   disconnect():boolean;
 }
 

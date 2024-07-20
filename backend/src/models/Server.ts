@@ -1,14 +1,19 @@
+
+
 import express, { Application, Router } from "express";
+import ConectionFactory from "../connection/ConnectionFactory";
+import { ConnectionData } from "../global/constantes";
 
 export default class Server {
 
-  private static instaceServer:Server;
-  private app: Application;
-  private port: string;
-  private constructor(){
+  private static instaceServer: Server;
+  public app: Application;
+  public port: string;
+  private constructor() {
     this.app = express();
     this.port = process.env.PORT ?? '3001';
     this.midlewares();
+    this.initDatabase();
   }
 
   /**
@@ -16,6 +21,22 @@ export default class Server {
    */
   public static get instance(): Server {
     return this.instaceServer ?? (this.instaceServer = new Server());
+  }
+
+  /**
+   * Connection by database
+   */
+  async initDatabase() {
+    try {
+      const connectionFactory = ConectionFactory.getConection(ConnectionData.MYSQL);
+      if (!connectionFactory) {
+        throw new Error(`Connection ${ConnectionData.MYSQL} is not configured`);
+      }
+      await connectionFactory.conectar().initialize()
+      console.log('Connection to the database has been established successfully. 🚀');
+    } catch (error) {
+      console.error('Unable to connect to the database:', error);
+    }
   }
 
   /**
@@ -35,7 +56,7 @@ export default class Server {
     });
   }
 
-  routes(router:Router, path:string){
+  routes(router: Router, path: string) {
     this.app.use(path, router);
   }
 }
