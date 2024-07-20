@@ -38,7 +38,7 @@ Create a file with the name .env in the root of the backend folder and add the e
   MYSQL_PORT=port_mysql
 ```
 
-Execute the insert of the master data found in the following directory (incremental.sql).
+Run the insert of the master data found in the following directory (incremental.sql) for the database that has been created.
 ```
   cd /backend/bd
 ```
