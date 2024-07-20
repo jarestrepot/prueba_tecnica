@@ -30,14 +30,18 @@ Database configuration
 
 Create a file with the name .env in the root of the backend folder and add the environment variables for the mysql connection.
 ```
-  PORT=number_port_server
-  MYSQL_DB=databesa_name
+  PORT=server_port_number
+  MYSQL_DB=database_name
   MYSQL_ROOT=client_mysql
   MYSQL_PASSWORD=password_client_mysql
   MYSQL_HOST=host_mysql
   MYSQL_PORT=port_mysql
 ```
 
+Execute the insert of the master data found in the following directory (incremental.sql).
+```
+  cd /backend/bd
+```
 
 
 Run the server as a developer
