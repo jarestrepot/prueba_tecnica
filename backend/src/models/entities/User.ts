@@ -5,10 +5,10 @@ import Address from "./Direction";
 @Entity('users')
 export default class UserModel extends BaseModel {
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
-  @Column("text")
-  nickName!: string;
+  @Column("varchar", { nullable: false, unique: true, length: 50 })
+  nick_name!: string;
 
   @Column("text")
   name!: string;
@@ -19,8 +19,8 @@ export default class UserModel extends BaseModel {
   @Column("text")
   surname!: string;
 
-  @Column("text")
-  secondSurname!: string;
+  @Column("text", { nullable: true })
+  secondSurname?: string;
 
   @ManyToOne(() => Address, (address) => address.user)
   @JoinColumn({
@@ -28,7 +28,7 @@ export default class UserModel extends BaseModel {
   })
   address?: Address;
 
-  @Column("text")
+  @Column("varchar", { nullable: false, unique: true, length: 255 })
   email!: string;
 
   @Column("text", { nullable: true })

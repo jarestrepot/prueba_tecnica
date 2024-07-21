@@ -3,11 +3,11 @@ import BaseModel from "./base/BaseModel";
 import Country from "./Country";
 import Address from "./Direction";
 
-@Entity('city')
+@Entity('cities')
 export default class City extends BaseModel {
 
   @PrimaryGeneratedColumn()
-  id!: number;
+  id!: string;
 
   @Column('text')
   name!: string;

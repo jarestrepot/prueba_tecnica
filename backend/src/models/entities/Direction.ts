@@ -3,11 +3,11 @@ import BaseModel from "./base/BaseModel";
 import UserModel from "./User";
 import City from "./City";
 
-@Entity('direction')
+@Entity('directions')
 export default class Address extends BaseModel {
 
   @PrimaryGeneratedColumn('uuid')
-  protected id!: number;
+  id!: string;
 
   @OneToMany(() => UserModel, (user) => user.address )
   user!: UserModel[];

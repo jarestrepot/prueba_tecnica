@@ -1,5 +1,5 @@
 -- Inserción de 50 registros en la tabla country
-INSERT INTO country (id, name) VALUES 
+INSERT INTO countries (id, name) VALUES 
   ('11111111-1111-1111-1111-111111111111', 'United States'),
   ('22222222-2222-2222-2222-222222222222', 'Canada'),
   ('33333333-3333-3333-3333-333333333333', 'Mexico'),
@@ -47,11 +47,12 @@ INSERT INTO country (id, name) VALUES
   ('e6e6e6e6-e6e6-e6e6-e6e6-e6e6e6e6e6e6', 'Australia'),
   ('f7f7f7f7-f7f7-f7f7-f7f7-f7f7f7f7f7f7', 'Austria'),
   ('01020202-0202-0202-0202-020202020202', 'Azerbaijan'),
-  ('02030303-0303-0303-0303-030303030303', 'Bahrain');
+  ('02030303-0303-0303-0303-030303030303', 'Bahrain'),
+  ('112083-2ptddfjml44km-sjdo', 'España');
 
 
   -- Inserción de 50 registros en la tabla city
-INSERT INTO city (name, country_id) VALUES 
+INSERT INTO cities (name, country_id) VALUES 
   ('New York', '11111111-1111-1111-1111-111111111111'),
   ('Los Angeles', '11111111-1111-1111-1111-111111111111'),
   ('Chicago', '11111111-1111-1111-1111-111111111111'),
@@ -101,4 +102,12 @@ INSERT INTO city (name, country_id) VALUES
   ('Strasbourg', '55555555-5555-5555-5555-555555555555'),
   ('Montpellier', '55555555-5555-5555-5555-555555555555'),
   ('Bordeaux', '55555555-5555-5555-5555-555555555555'),
-  ('Lille', '55555555-5555-5555-5555-555555555555');
+  ('Lille', '55555555-5555-5555-5555-555555555555'),
+  ('Bareclona', '112083-2ptddfjml44km-sjdo'),
+  ('Madrid', '112083-2ptddfjml44km-sjdo'),
+  ('Valencia', '112083-2ptddfjml44km-sjdo'),
+  ('Sevilla', '112083-2ptddfjml44km-sjdo'),
+  ('Zaragoza', '112083-2ptddfjml44km-sjdo'),
+  ('Santiago', '112083-2ptddfjml44km-sjdo'),
+  ('Menorca', '112083-2ptddfjml44km-sjdo');
+

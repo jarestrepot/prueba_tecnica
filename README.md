@@ -36,6 +36,7 @@ Create a file with the name .env in the root of the backend folder and add the e
   MYSQL_PASSWORD=password_client_mysql
   MYSQL_HOST=host_mysql
   MYSQL_PORT=port_mysql
+  SECRET_KEY_JWT:your_secret_key
 ```
 
 Run the insert of the master data found in the following directory (incremental.sql) for the database that has been created.
@@ -53,6 +54,33 @@ Run the server as a production
 ```
   npm run start
 ```
+<hr>
+
+## API ENDPOINTS
+
+### Create user - /user/register
+```
+  body  {
+  "nick_name": "test",
+  "name": "test",
+  "password": "test",
+  "surname": "test",
+  "secondSurname": "test" || null,
+  "email": "test@test.com",
+  "token": null,
+  "address": {
+    "post_code": number_post_code,
+    "street": "test_street",
+    "number_street": your_number_street,
+    "apartment": "test_apartament",
+    "city": id_city || null
+  } || null || {}
+}
+```
+
+### Login user - user/login
+
+
 
 
 
