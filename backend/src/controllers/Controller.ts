@@ -96,6 +96,28 @@ export class Controller {
     }
   }
 
+  getAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      let { status, success, msg, data } = await this.repository.getAll();
+      return res.status(status).json(
+        {
+          msg,
+          success,
+          status,
+          data: data ?? []
+        }
+      );
+    } catch (error) {
+      next(error);
+      if (error instanceof Error) {
+        const { message } = this.handleError(error.message);
+        return this.handleErrorServer(message, res);
+      }
+      const message = CONSTANTES.NULL_QUERY(`getAll ${req.url}`);
+      return this.handleErrorServer(message, res);
+    }
+  }
+
   delete = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let { id } = req.params;

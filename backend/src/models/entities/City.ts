@@ -9,7 +9,7 @@ export default class City extends BaseModel {
   @PrimaryGeneratedColumn()
   id!: string;
 
-  @Column('text')
+  @Column('varchar', { nullable: false, length: 255 , unique: true })
   name!: string;
 
   @ManyToOne(() => Country, country => country.cities )

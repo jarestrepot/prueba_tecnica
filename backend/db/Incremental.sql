@@ -110,4 +110,3 @@ INSERT INTO cities (name, country_id) VALUES
   ('Zaragoza', '112083-2ptddfjml44km-sjdo'),
   ('Santiago', '112083-2ptddfjml44km-sjdo'),
   ('Menorca', '112083-2ptddfjml44km-sjdo');
-

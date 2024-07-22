@@ -1,6 +1,6 @@
 import { CONSTANTES } from "../global/constantes";
 import { Id, Query, Repository } from "../interfaces/declarations";
-import { IResponseModel } from "../interfaces/model.response";
+import { IResponseModel, IResponseModelArray } from "../interfaces/model.response";
 import { AuthMiddleware } from "../middleware/auth";
 import Address from "../models/entities/Direction";
 import UserModel from "../models/entities/User";
@@ -113,6 +113,18 @@ export class UserRepository implements Repository<UserModel> {
     }
   }
 
+  async getAll(): Promise<IResponseModelArray<UserModel[]>> {
+    try {
+      let allUsers = await UserModel.find();
+      return this.responseActionArray(true, CONSTANTES.USER.ALL, allUsers, 200 );
+    } catch (error) {
+      if (error instanceof Error) {
+        throw this.handleError(error.message);
+      }
+      throw this.handleError(CONSTANTES.USER.UNKNOWN_ERROR('getAll'));
+    }
+  }
+
 
   async delete(id: Id, query: Query = {}): Promise<IResponseModel<UserModel>> {
     try {
@@ -159,6 +171,15 @@ export class UserRepository implements Repository<UserModel> {
 
 
   responseAction(success: boolean, msg: string, data: UserModel | null , status: number): IResponseModel<UserModel> {
+    return {
+      status,
+      success,
+      msg,
+      data
+    }
+  }
+
+  responseActionArray(success: boolean, msg: string, data: UserModel[] | null, status: number): IResponseModel<UserModel[]> {
     return {
       status,
       success,

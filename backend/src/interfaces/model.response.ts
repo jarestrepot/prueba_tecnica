@@ -5,3 +5,10 @@ export interface IResponseModel<T> {
   msg: string;
   data: T | null;
 }
+
+export interface IResponseModelArray<T> {
+  status: number;
+  success: boolean;
+  msg: string;
+  data: T | null;
+}

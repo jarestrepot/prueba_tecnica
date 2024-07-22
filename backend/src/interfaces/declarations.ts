@@ -1,4 +1,4 @@
-import { IResponseModel } from "./model.response"
+import { IResponseModel, IResponseModelArray } from "./model.response"
 
 export type Query = Record<string, unknown>
 
@@ -11,6 +11,7 @@ export interface Repository<T = unknown> {
   post(data:Partial<T>): Promise<IResponseModel<T>>
   delete(id: Id, query?: Query): Promise<IResponseModel<T>>
   update(data: T): Promise<IResponseModel<T>>
+  getAll(): Promise<IResponseModelArray<T[]>>
   responseAction(success: boolean, msg: string, data: T | null, status: number): IResponseModel<T>
   handleError(msg:string): Error
   toString(data: T): string
