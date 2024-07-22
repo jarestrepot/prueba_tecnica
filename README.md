@@ -22,13 +22,16 @@ Install dependencies
 ```
 
 <hr>
+
 ### Packages used for the backend 🗂️
+
 - 🦾 TypeScript 
 - 💻 express 
 - ⚙️ cors
 - 🫸🏽 jsonWebToken
 - 📑 TypeOrm
 - 🔗 bcrype
+
 <hr>
 
 Database configuration
