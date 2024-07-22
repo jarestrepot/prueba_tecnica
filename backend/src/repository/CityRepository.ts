@@ -88,7 +88,9 @@ export class CityRepository implements Repository<City> {
 
   async getAll(): Promise<IResponseModelArray<City[]>> {
     try {
-      let allCities = await City.find();
+      let allCities = await City.find({
+        relations: ['country']
+      });
       return this.responseActionArray(true, CONSTANTES.CITY.ALL, allCities, 200);
     } catch (error) {
       if (error instanceof Error) {

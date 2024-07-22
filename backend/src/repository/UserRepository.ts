@@ -115,7 +115,9 @@ export class UserRepository implements Repository<UserModel> {
 
   async getAll(): Promise<IResponseModelArray<UserModel[]>> {
     try {
-      let allUsers = await UserModel.find();
+      let allUsers = await UserModel.find({
+        relations: ['address', 'address.city', 'address.city.country']
+      });
       return this.responseActionArray(true, CONSTANTES.USER.ALL, allUsers, 200 );
     } catch (error) {
       if (error instanceof Error) {
