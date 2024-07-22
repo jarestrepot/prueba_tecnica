@@ -21,6 +21,16 @@ Install dependencies
   npm install
 ```
 
+<hr>
+### Packages used for the backend 🗂️
+- 🦾 TypeScript 
+- 💻 express 
+- ⚙️ cors
+- 🫸🏽 jsonWebToken
+- 📑 TypeOrm
+- 🔗 bcrype
+<hr>
+
 Database configuration
 1. Create database in MySQL.
 2. Database configuration with the name you see appropriate.
