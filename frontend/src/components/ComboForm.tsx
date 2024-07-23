@@ -6,11 +6,12 @@ interface IcomboForm {
   typeInput:string;
   placeholder: string;
   children: ReactNode | null,
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
 }
 
 
 const ComboForm = ({ label, type, placeholder, onChange, typeInput, children }: IcomboForm) => {
+
   return (
     <div className="max-w-">
       <label

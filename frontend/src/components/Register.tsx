@@ -12,28 +12,39 @@ import fetchData from '../api/postCreateUser';
 import { UserData } from '../interfaces/IResponseCreate';
 import { useSnackbar } from 'notistack';
 import CONSTANTES from '../global/constantes';
+import { useLocalStorage } from 'react-use';
+import { DataUser } from '../pages/AboutUs';
 
 
 const FormRegister = () => {
 
+  const [user] = useLocalStorage<DataUser>('user_data');
+  const data = user?.data;
+  const nameCity = data?.address?.city.name;
   const initialValues: IRegister = {
-    nick_name: '',
-    name: '',
-    surname: '',
-    secondSurname: '',
-    email: '',
+    nick_name: data?.nick_name || '',
+    name: data?.name || '',
+    surname: data?.surname || '',
+    secondSurname: data?.secondSurname || '',
+    email: data?.email || '',
     password: '',
     passwordConfirmation: '',
-    post_code: undefined,
-    street: undefined,
-    number_street: undefined,
-    apartment: undefined,
-    city: undefined,
-  }
+    post_code: data?.address?.post_code || undefined,
+    street: data?.address?.street || undefined,
+    number_street: data?.address?.number_street || undefined,
+    apartment: data?.address?.apartment || undefined,
+    city: data?.address?.city.id || undefined,
+  };
+
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [cities, setCities] = useState <IResponseModel<ICityResponseArray>>()
+  const [isUpdated, setIsUpdated] = useState<boolean>();
+
+  useEffect(() => {
+    setIsUpdated(Boolean(data));
+  }, [data]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,7 +96,6 @@ const FormRegister = () => {
         city: Number(city),
       },
     };
-
     try {
       const response = await fetchData<BodyPostCreate, IResponseModel<UserData>>({
         method: 'POST',
@@ -143,7 +153,7 @@ const FormRegister = () => {
             label={field.label}
             type={ field.name }
             typeInput={field.typeInput}
-            placeholder={field.placeholder}
+            placeholder={String(initialValues[field.name as keyof typeof initialValues]) ?? field.placeholder}
             onChange={handleChange}
           >
             {
@@ -168,7 +178,9 @@ const FormRegister = () => {
               onChange={handleChange}
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
-              {/* <option value="" disabled selected>--- Chose one city ---</option> */}
+              {
+                nameCity ? <option value={initialValues.city}>{nameCity}</option> : null
+              }
               {cities.data && Array.isArray(cities.data) && cities.data.length > 0 ? (
                 cities.data.map((city) => (
                   <option key={city.id} value={city.id}>
@@ -183,22 +195,38 @@ const FormRegister = () => {
         ) : (
           <div>Loading cities...</div>
         )}
-        <button
-          type='submit'
-          className=
-          {`w-full ${isSubmitting || !isValid ? 'cursor-not-allowed' : 'cursor-pointer'} bg-slate-500 text-white bg-primary-600 hover:bg-slate-400 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
-        >
-          Create account
-        </button>
-        <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
-          Do you already have an account?{" "}
-          <Link
-            to="/"
-            className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-          >
-            Login
-          </Link>
-        </p>
+
+        {
+          isUpdated 
+            ?
+              <button
+                type='submit'
+                className=
+                {`w-full ${isSubmitting || !isValid ? 'cursor-not-allowed' : 'cursor-pointer'} bg-slate-500 text-white bg-primary-600 hover:bg-slate-400 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
+              >
+                Updated
+              </button>
+            : 
+            <>
+              <button
+                type='submit'
+                className=
+                {`w-full ${isSubmitting || !isValid ? 'cursor-not-allowed' : 'cursor-pointer'} bg-slate-500 text-white bg-primary-600 hover:bg-slate-400 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
+              >
+                Create account
+              </button>
+              <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
+                Do you already have an account?{" "}
+                <Link
+                  to="/"
+                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >
+                  Login
+                </Link>
+              </p>
+            </>
+        }
+        
       </form>
     </>
   )

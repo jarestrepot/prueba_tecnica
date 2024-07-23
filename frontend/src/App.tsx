@@ -8,6 +8,7 @@ import ProtectedRoute from './utils/ProtectedRoute';
 import LayoutPrivate from './layouts/LayoutPrivate';
 import { SnackbarProvider } from 'notistack';
 import { Register } from './pages/Resgiter';
+import { Update } from './pages/Update';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route element={<ProtectedRoute path="/" />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="/about" element={<AboutUs />} />
+            <Route path="/update" element={<Update />} />
           </Route>
           <Route path="*" element={<Navigate to="/home" />} />
         </Route>
