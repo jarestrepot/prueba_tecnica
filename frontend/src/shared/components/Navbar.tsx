@@ -26,6 +26,7 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
   return (
     <header className={`flex w-full items-center bg-slate-300 dark:bg-dark text-gray-900 px-4`}>
       <div className="w-full">

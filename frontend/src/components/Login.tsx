@@ -55,11 +55,10 @@ const FormLogin = () => {
           id: userData.id,
           token: userData.token,
         }));
-        
-        navigate('/home');
-        return;
+        localStorage.setItem('user_data', JSON.stringify({
+          data: userData
+        }))
       }
-
       navigate('/home');
       return;
     } catch (error) {

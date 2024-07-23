@@ -10,14 +10,13 @@ const AboutUs = () => {
   const data = user?.data;
 
   return (
-    <section>
-      <h1 className="text-black">
+    <section className="mt-5">
+      <h1 className="text-black text-center text-3xl">
         About us
       </h1>
-      <div className="text-black w-full grid place-items-center">
+      <div className="text-black w-full grid place-items-center ">
         {
           data ? <SingleCard 
-
           /> : null
         }
       </div>
