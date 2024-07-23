@@ -88,8 +88,6 @@ const FormRegister = () => {
       },
     };
 
-    console.log(body)
-
     try {
       const response = await fetchData<BodyPostCreate, IResponseModel<UserData>>({
         method: 'POST',

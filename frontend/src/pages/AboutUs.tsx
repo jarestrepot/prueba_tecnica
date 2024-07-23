@@ -12,7 +12,7 @@ const AboutUs = () => {
   return (
     <section className="mt-5">
       <h1 className="text-black text-center text-3xl">
-        About us
+        User data
       </h1>
       <div className="text-black w-full grid place-items-center ">
         {

@@ -3,7 +3,6 @@ import { DataUser } from "../pages/AboutUs";
 
 
 const SingleCard = ({ data }: DataUser) => {
-  console.log(data)
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg mt-4 shadow dark:bg-gray-800 dark:border-gray-700">
