@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ListItem from "../../components/ListItem";
+import { Link } from "react-router-dom";
 
 
 const Navbar = () => {
@@ -32,18 +33,12 @@ const Navbar = () => {
       <div className="w-full">
         <div className="relative flex items-center justify-between w-full">
           <div className="w-60 max-w-full px-4">
-            <a href="/#" className="block w-full py-5">
+            <Link to="/home" className="block w-full py-5">
               <img
                 src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-primary.svg"
                 alt="logo"
-                className="dark:hidden"
               />
-              <img
-                src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-white.svg"
-                alt="logo"
-                className="hidden dark:block"
-              />
-            </a>
+            </Link>
           </div>
           <div className="flex w-full items-center justify-end px-4">
             <div>
@@ -53,9 +48,9 @@ const Navbar = () => {
                 className={` ${open && "navbarTogglerActive"
                   } absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden`}
               >
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-black dark:bg-white"></span>
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-black dark:bg-white"></span>
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-black dark:bg-white"></span>
+                <span className="relative my-[6px] block h-[2px] w-[30px] bg-black"></span>
+                <span className="relative my-[6px] block h-[2px] w-[30px] bg-black"></span>
+                <span className="relative my-[6px] block h-[2px] w-[30px] bg-black"></span>
               </button>
               <nav
                 ref={menuRef}

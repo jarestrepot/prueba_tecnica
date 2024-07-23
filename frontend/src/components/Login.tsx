@@ -11,8 +11,6 @@ import { useSnackbar } from 'notistack';
 import CONSTANTES from '../global/constantes';
 
 
-
-
 const FormLogin = () => {
 
   const initialValues: ILogin = {
@@ -112,11 +110,11 @@ const FormLogin = () => {
         >
           Login
         </button>
-        <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-center font-light text-gray-500 ">
           You do not have an account?{" "}
           <Link
             to="/register"
-            className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+            className="font-medium text-primary-600 hover:underline"
           >
             Register
           </Link>

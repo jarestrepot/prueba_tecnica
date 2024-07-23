@@ -28,7 +28,7 @@ Install dependencies
 - 🦾 TypeScript 
 - 💻 express 
 - ⚙️ cors
-- 🫸🏽 jsonWebToken
+- 🔐 jsonWebToken
 - 📑 TypeOrm
 - 🔗 bcrype
 
@@ -190,5 +190,48 @@ Returns all created cities and their associations.
 
 
 
+# FrontEnd
+
+Navigate to the root of the frontend 🗂️
+
+For Windows
+```
+cd .\frontend\
+```
+
+For Unix
+```
+cd frontend/
+```
+
+### Commands / Steps 👣👣
+
+Install dependencies
+```
+  npm install
+```
+
+<hr>
+
+### Packages used for the backend 🗂️
+
+- 🦾 TypeScript 
+- 💻 React 
+- ⚙️ Tailwindcss
+- 🫸🏽 react-router-dom
+- 📑 react-use
+- 🔐 formik
+- 🧱  yup
+- 🗨️ notistack
+
+<hr>
+
+## Steps
+
+<strong>To enter the application you must first fill out the registration form and then log in.</strong
+
+1. Register
+2. Login
+3. Browse
 
 

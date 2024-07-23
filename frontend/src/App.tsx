@@ -7,21 +7,16 @@ import AboutUs from './pages/AboutUs';
 import ProtectedRoute from './utils/ProtectedRoute';
 import LayoutPrivate from './layouts/LayoutPrivate';
 import { SnackbarProvider } from 'notistack';
-import { useLocalStorage } from 'react-use';
-import { useState } from 'react';
 import { Register } from './pages/Resgiter';
 
 const App = () => {
-  const [user_storage] = useLocalStorage<{ id: string; token: string }>('token_user');
-  const [isAuth] = useState<boolean>(!!user_storage);
-
   return (
     <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
       <Routes>
         {/* Rutas públicas */}
         <Route path="/" element={<LayoutPublic />}>
-          <Route path="/" element={<Login isAuth={Boolean(isAuth)} />} />
-          <Route path="/register" element={<Register isAuth={Boolean(isAuth)} />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
         {/* Rutas protegidas */}
         <Route path="/" element={<LayoutPrivate />}>
@@ -29,7 +24,7 @@ const App = () => {
             <Route path="/home" element={<HomePage />} />
             <Route path="/about" element={<AboutUs />} />
           </Route>
-          <Route path="*" element={<Navigate to="/about" />} />
+          <Route path="*" element={<Navigate to="/home" />} />
         </Route>
       </Routes>
     </SnackbarProvider>

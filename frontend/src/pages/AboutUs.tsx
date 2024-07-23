@@ -1,7 +1,7 @@
 import { useLocalStorage } from "react-use";
 import { User } from "../interfaces/IResponseCreate";
 import SingleCard from "../components/Card";
-interface DataUser {
+export interface DataUser {
   data:User |undefined;
 }
 
@@ -16,8 +16,7 @@ const AboutUs = () => {
       </h1>
       <div className="text-black w-full grid place-items-center ">
         {
-          data ? <SingleCard 
-          /> : null
+          data ? <SingleCard data={data}/> : null
         }
       </div>
     </section>

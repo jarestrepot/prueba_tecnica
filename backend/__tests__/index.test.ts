@@ -3,12 +3,18 @@ import { describe, expect, test, beforeAll } from '@jest/globals';
 import Server from '../src/models/Server';
 import request from 'supertest';
 import routerUser from "../src/router/user";
+import { CorsOptions } from 'cors';
 
 let serverInstance: Server;
 beforeAll(() => {
   serverInstance = Server.instance;
   serverInstance.initDatabase();
-  serverInstance.routes(routerUser, '/login'); // Instace route
+  const corsGeneral: CorsOptions = {
+    origin: ['http://localhost:5173'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
+  serverInstance.routes(routerUser, '/login', corsGeneral); // Instace route
 });
 
 describe("Server", () => {
