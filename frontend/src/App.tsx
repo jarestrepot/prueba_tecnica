@@ -20,7 +20,7 @@ import fetchData from './api/postCreateUser'
 const App = () => {
   const [user_storage] = useLocalStorage<{ id: string; token: string }>('token_user');
   const [, setUser] = useState<IResponseModel<User> | null>(null);
-  const [isAuth, setAuth] = useState<boolean>();
+  const [isAuth, setAuth] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     const fetchDataInit = async () => {
@@ -50,6 +50,7 @@ const App = () => {
     };
     fetchDataInit();
   }, [enqueueSnackbar, user_storage, isAuth]);
+
   return (
     <>
       <SnackbarProvider maxSnack={3} autoHideDuration={3000}>

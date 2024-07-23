@@ -65,7 +65,7 @@ const Navbar = () => {
                 <ul className="block lg:flex">
                   <ListItem navLink="/home" onClick={ () => setOpen(false) }>Home</ListItem>
                   <ListItem navLink="/about" onClick={ () => setOpen(false) }>About</ListItem>
-                  <ListItem navLink="/register" onClick={() => clearLocalStorage() }>Logt out</ListItem>
+                  <ListItem navLink="./login" onClick={() => clearLocalStorage() }>Logt out</ListItem>
                 </ul>
               </nav>
             </div>

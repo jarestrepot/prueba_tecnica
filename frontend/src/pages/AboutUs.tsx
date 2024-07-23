@@ -1,5 +1,6 @@
 import { useLocalStorage } from "react-use";
 import { User } from "../interfaces/IResponseCreate";
+import SingleCard from "../components/Card";
 interface DataUser {
   data:User |undefined;
 }
@@ -7,16 +8,19 @@ interface DataUser {
 const AboutUs = () => {
   const [user] = useLocalStorage<DataUser>('user_data');
   const data = user?.data;
+
   return (
     <section>
       <h1 className="text-black">
         About us
       </h1>
-      <p className="text-black">
+      <div className="text-black w-full grid place-items-center">
         {
-          data ? data.name : null
+          data ? <SingleCard 
+
+          /> : null
         }
-      </p>
+      </div>
     </section>
   )
 }

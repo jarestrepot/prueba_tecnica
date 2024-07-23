@@ -55,8 +55,13 @@ const FormLogin = () => {
           id: userData.id,
           token: userData.token,
         }));
+        
         navigate('/home');
+        return;
       }
+
+      navigate('/home');
+      return;
     } catch (error) {
       if(error instanceof Error) {
         enqueueSnackbar(error.message, { variant: 'error' });
