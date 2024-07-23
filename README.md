@@ -3,7 +3,7 @@
 Node version used: <strong>20.9.0</strong>
 
 If you do not have it installed you can download the node nvm version manager
-[text](https://github.com/nvm-sh/nvm)
+[nvm](https://github.com/nvm-sh/nvm)
 
 Navigate to the root of the backend 🗂️
 
