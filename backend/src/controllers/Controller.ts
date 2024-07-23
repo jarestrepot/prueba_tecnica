@@ -1,10 +1,10 @@
 import { CONSTANTES } from "../global/constantes";
 import { Repository } from "../interfaces/declarations";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 
 export class Controller {
   constructor(private repository: Repository){}
-  postCreate = async (req:Request, res:Response, next: NextFunction) => {
+  postCreate = async (req:Request, res:Response) => {
     try {
       const body = req.body;
       let { status, success, msg, data } = await this.repository.create(body);
@@ -17,7 +17,6 @@ export class Controller {
         }
       );
     } catch (error) {
-      next(error);
       if (error instanceof Error) {
         const { message } = this.handleError(error.message);
         return this.handleErrorServer(message, res);
@@ -27,7 +26,7 @@ export class Controller {
     }
   }
 
-  getEntityById = async (req: Request, res: Response, next: NextFunction) => {
+  getEntityById = async (req: Request, res: Response) => {
     try {
       let { id } = req.params;
       let { status, success, msg, data } = await this.repository.getById(id);
@@ -40,7 +39,6 @@ export class Controller {
         }
       ); 
     } catch (error) {
-      next(error);
       if (error instanceof Error) {
         const { message } = this.handleError(error.message);
         return this.handleErrorServer(message, res);
@@ -50,7 +48,7 @@ export class Controller {
     }
   }
 
-  post = async (req: Request, res: Response, next: NextFunction) => {
+  post = async (req: Request, res: Response) => {
     try {
       const body = req.body;
       let { status, success, msg, data } = await this.repository.post(body);
@@ -63,7 +61,6 @@ export class Controller {
         }
       );
     } catch (error) {
-      next(error);
       if (error instanceof Error) {
         const { message } = this.handleError(error.message);
         return this.handleErrorServer(message, res);
@@ -73,7 +70,7 @@ export class Controller {
     }
   }
 
-  get = async (req: Request, res: Response, next: NextFunction) => {
+  get = async (req: Request, res: Response) => {
     try{
       let { id } = req.params;
       let { status, success, msg, data } = await this.repository.get(id);
@@ -86,7 +83,6 @@ export class Controller {
         }
       );
     }catch(error){
-      next(error);
       if( error instanceof Error ) {
         const { message } = this.handleError(error.message);
         return this.handleErrorServer(message, res);
@@ -96,7 +92,7 @@ export class Controller {
     }
   }
 
-  getAll = async (req: Request, res: Response, next: NextFunction) => {
+  getAll = async (req: Request, res: Response) => {
     try {
       let { status, success, msg, data } = await this.repository.getAll();
       return res.status(status).json(
@@ -108,7 +104,6 @@ export class Controller {
         }
       );
     } catch (error) {
-      next(error);
       if (error instanceof Error) {
         const { message } = this.handleError(error.message);
         return this.handleErrorServer(message, res);
@@ -118,7 +113,7 @@ export class Controller {
     }
   }
 
-  delete = async (req: Request, res: Response, next: NextFunction) => {
+  delete = async (req: Request, res: Response) => {
     try {
       let { id } = req.params;
       let { status, success, msg, data } = await this.repository.delete(id);
@@ -131,7 +126,6 @@ export class Controller {
         }
       );
     } catch (error) {
-      next(error);
       if (error instanceof Error) {
         const { message } = this.handleError(error.message);
         return this.handleErrorServer(message, res);
@@ -141,7 +135,7 @@ export class Controller {
     }
   }
 
-  update = async (req: Request, res: Response, next: NextFunction) => {
+  update = async (req: Request, res: Response) => {
     try {
       const { body } = req;
       let { status, success, msg, data } = await this.repository.update(body);
@@ -154,7 +148,6 @@ export class Controller {
         }
       );
     } catch (error) {
-      next(error);
       if (error instanceof Error) {
         const { message } = this.handleError(error.message);
         return this.handleErrorServer(message, res);

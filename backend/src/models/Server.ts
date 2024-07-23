@@ -3,6 +3,7 @@
 import express, { Application, Router } from "express";
 import ConectionFactory from "../connection/ConnectionFactory";
 import { ConnectionData } from "../global/constantes";
+import cors, { CorsOptions } from 'cors';
 
 export default class Server {
 
@@ -56,8 +57,8 @@ export default class Server {
     });
   }
 
-  routes(router: Router, path: string) {
-    this.app.use(path, router);
+  routes(router: Router, path: string, corsOptions: CorsOptions ) {
+    this.app.use(path, cors(corsOptions), router);
   }
 }
 
