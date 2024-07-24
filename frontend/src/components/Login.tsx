@@ -53,9 +53,6 @@ const FormLogin = () => {
           id: userData.id,
           token: userData.token,
         }));
-        localStorage.setItem('user_data', JSON.stringify({
-          data: userData
-        }))
       }
       navigate('/home');
       return;
