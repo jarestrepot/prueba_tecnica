@@ -31,12 +31,10 @@ const ProtectedRoute = ({ path = '/' }: ICanActivatePath) => {
           if(response.data && response.success){
             setUser(response.data as unknown as User);
           }else{
-            setUser(null);
             removeUserStorage();
             navigate('/login')
           }
         }catch(err){
-          setUser(null);
           removeUserStorage();
           navigate('/login')
         }

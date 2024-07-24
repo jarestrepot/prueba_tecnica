@@ -44,8 +44,7 @@ const Navbar = () => {
               <button
                 onClick={() => setOpen(!open)}
                 id="navbarToggler"
-                className={` ${open && "navbarTogglerActive"
-                  } absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden`}
+                className={` ${open && "navbarTogglerActive"} absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden`}
               >
                 <span className="relative my-[6px] block h-[2px] w-[30px] bg-black"></span>
                 <span className="relative my-[6px] block h-[2px] w-[30px] bg-black"></span>
