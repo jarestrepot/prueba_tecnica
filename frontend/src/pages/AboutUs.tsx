@@ -1,22 +1,22 @@
-import { useLocalStorage } from "react-use";
 import { User } from "../interfaces/IResponseCreate";
 import SingleCard from "../components/Card";
+import { useContext } from "react";
+import { UserContext } from "../utils/ProtectedRoute";
 export interface DataUser {
   data:User |undefined;
 }
 
 const AboutUs = () => {
-  const [user] = useLocalStorage<DataUser>('user_data');
-  const data = user?.data;
+  const { user } = useContext(UserContext)
 
   return (
-    <section className="mt-5">
-      <h1 className="text-black text-center text-3xl">
+    <section className="mt-4">
+      <h1 className="text-black text-center text-4xl font-bold">
         User data
       </h1>
       <div className="text-black w-full grid place-items-center ">
         {
-          data ? <SingleCard data={data}/> : null
+          user ? <SingleCard data={user}/> : null
         }
       </div>
     </section>
