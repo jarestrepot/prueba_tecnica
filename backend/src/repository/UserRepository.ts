@@ -29,9 +29,13 @@ export class UserRepository implements Repository<UserModel> {
           }
           data.address = address;
         }
-        const token = await AuthMiddleware.tokenSing(data);
-        data.token = token;
         let userCreated = await UserModel.save(data);
+        let userById = await this.getById(userCreated.id);
+        if( userById.data ){
+          const token = await AuthMiddleware.tokenSing(userById.data!);
+          userById.data.token = token;
+          await this.update(userById.data!)
+        }
         return this.getById(userCreated.id);
       }
       return this.responseAction(false, CONSTANTES.USER.EXISTS_USER(user.name), null, 404);
@@ -134,6 +138,15 @@ export class UserRepository implements Repository<UserModel> {
         return this.responseAction(false, CONSTANTES.USER.NOT_FOUND, null, 404);
       }
       let deleteResult = await UserModel.delete({ id: id as string });
+      if (data.address && data.address.id) {
+        const usersWithSameAddress = await UserModel.count({
+          where: { address: { id: data.address.id } }
+        });
+        console.log(usersWithSameAddress)
+        if( usersWithSameAddress === 1 ) {
+          await Address.delete({ id: data.address.id });
+        }
+      }
       if (deleteResult.affected != null && deleteResult.affected > 0){
         return this.responseAction(true, CONSTANTES.USER.DELETE_SUCCESSFUL(this.toString(data)), null, 200);
       }

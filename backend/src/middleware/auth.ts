@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import UserModel from '../models/entities/User';
 import { IResponseModel } from '../interfaces/model.response';
 import { CONSTANTES } from '../global/constantes';
@@ -15,11 +15,15 @@ export class AuthMiddleware {
    * @param next Next function
    * @returns Nothing in case the token is correct or error response from the server
    */
-  static checkToken = async({ headers }: Request, res: Response, next: NextFunction) => {
+  static checkToken = async({ headers, params }: Request, res: Response, next: NextFunction) => {
     try {
+      let idVerify:string | undefined = undefined;
+      if( params.id ){
+        idVerify = params.id
+      }
       const { authorization } = headers;
       if (authorization && authorization.startsWith('Bearer ')) {
-        await this.verifyToken(authorization.slice(7));
+        await this.verifyToken(authorization.slice(7), idVerify);
         next();
         return;
       }
@@ -50,33 +54,48 @@ export class AuthMiddleware {
     }
   }
 
-  static verifyToken = async (token:string) => {
+  static verifyToken = async ( token: string, id?: string ) => {
     try {
-      let payload = jwt.verify(token, process.env.SECRET_KEY_JWT ?? 'bCwzW38|aQSc:w>qmLsa0')
+      let payload = jwt.verify(token, process.env.SECRET_KEY_JWT ?? '$w+D56d99Gcv-VbFQy5Gs%<aT5Hm9k-') as JwtPayload;
+      if (typeof payload !== 'object' || !payload.id || !payload.email) {
+        throw new Error(CONSTANTES.ACCESS_DENIED);
+      }
+
+      let user = await UserModel.findOne({
+        where: { id: payload.id, email: payload.email }
+      });
+
+      if (!user || user.token !== token) {
+        throw new Error(CONSTANTES.ACCESS_DENIED);
+      }
+      if (id){
+        // Final validation of both cases
+        let userById = await UserModel.findOneBy({ id: id });
+        if (!userById || user.token !== userById.token) {
+          throw new Error(CONSTANTES.ACCESS_DENIED);
+        }
+      }
       return payload;
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
-        let user = await UserModel.findOne({ 
-          where: { token : token }
-        })
-        if (!user) throw new Error(CONSTANTES.ACCESS_DENIED)
-        // Refresh token
-        user.token = await this.tokenSing(user)
-        // Updated model user
-        await UserModel.update({ id: user.id }, user)
-        return;
+        return await this.refreshToken(token);
       }
       throw new Error(CONSTANTES.ACCESS_DENIED);
-      
     }
+  }
+
+  static refreshToken = async (token: string) => {
+    let user = await UserModel.findOne({ where: { token } });
+    if (!user) throw new Error(CONSTANTES.ACCESS_DENIED);
+    user.token = await this.tokenSing(user);
+    await UserModel.update({ id: user.id }, user);
+    return jwt.verify(user.token, process.env.SECRET_KEY_JWT ?? '$w+D56d99Gcv-VbFQy5Gs%<aT5Hm9k-') as JwtPayload;
   }
 
   static tokenSing = async ({ id, email, name }: UserModel) => {
     try {
       return jwt.sign(
-        {
-          id, email, name
-        },
+        { id, email, name },
         process.env.SECRET_KEY_JWT ?? '$w+D56d99Gcv-',
         {
           expiresIn: "24h"
