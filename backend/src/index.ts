@@ -11,6 +11,6 @@ const corsGeneral: CorsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 server.routes(routerUser, '/user', corsGeneral);
-server.routes(routerCity, '/cities', corsGeneral)
+server.routes(routerCity, '/cities', corsGeneral);
 
 

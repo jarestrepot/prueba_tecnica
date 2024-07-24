@@ -16,28 +16,58 @@ export class AuthMiddleware {
    * @returns Nothing in case the token is correct or error response from the server
    */
   static checkToken = async({ headers }: Request, res: Response, next: NextFunction) => {
-    const { authorization } = headers;
-    if (authorization && authorization.startsWith('Bearer ')) {
-      this.verifyToken(authorization.slice(7));
-      next();
-      return;
-    }
-    let { status, success, msg , data } = this.responseAction(false, CONSTANTES.ACCESS_DENIED, null, 401);
-    return res.status(status).json(
-      {
-        msg,
-        success,
-        status,
-        data: data ?? []
+    try {
+      const { authorization } = headers;
+      if (authorization && authorization.startsWith('Bearer ')) {
+        await this.verifyToken(authorization.slice(7));
+        next();
+        return;
       }
-    );
+      let { status, success, msg , data } = this.responseAction(false, CONSTANTES.ACCESS_DENIED, null, 401);
+      return res.status(status).json(
+        {
+          msg,
+          success,
+          status,
+          data: data ?? []
+        }
+      );
+    } catch (error) {
+      let errorMsg = CONSTANTES.ACCESS_DENIED;
+
+      if( error instanceof Error ){
+        errorMsg = error.message;
+      }
+      let { status, success, msg, data } = this.responseAction(false, errorMsg, null, 401);
+      return res.status(status).json(
+        {
+          msg,
+          success,
+          status,
+          data: data ?? []
+        }
+      );
+    }
   }
 
   static verifyToken = async (token:string) => {
     try {
-      return jwt.verify(token, process.env.SECRET_KEY_JWT ?? '')
+      let payload = jwt.verify(token, process.env.SECRET_KEY_JWT ?? 'bCwzW38|aQSc:w>qmLsa0')
+      return payload;
     } catch (error) {
-      return null;
+      if (error instanceof jwt.TokenExpiredError) {
+        let user = await UserModel.findOne({ 
+          where: { token : token }
+        })
+        if (!user) throw new Error(CONSTANTES.ACCESS_DENIED)
+        // Refresh token
+        user.token = await this.tokenSing(user)
+        // Updated model user
+        await UserModel.update({ id: user.id }, user)
+        return;
+      }
+      throw new Error(CONSTANTES.ACCESS_DENIED);
+      
     }
   }
 

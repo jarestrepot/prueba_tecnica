@@ -29,7 +29,6 @@ export class UserRepository implements Repository<UserModel> {
           }
           data.address = address;
         }
-
         const token = await AuthMiddleware.tokenSing(data);
         data.token = token;
         let userCreated = await UserModel.save(data);
