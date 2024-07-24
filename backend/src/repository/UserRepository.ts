@@ -137,20 +137,18 @@ export class UserRepository implements Repository<UserModel> {
       if(!data) {
         return this.responseAction(false, CONSTANTES.USER.NOT_FOUND, null, 404);
       }
-      let deleteResult = await UserModel.delete({ id: id as string });
       if (data.address && data.address.id) {
         const usersWithSameAddress = await UserModel.count({
           where: { address: { id: data.address.id } }
         });
-        console.log(usersWithSameAddress)
         if( usersWithSameAddress === 1 ) {
+          await UserModel.delete({ id: id as string });
           await Address.delete({ id: data.address.id });
+          return this.responseAction(true, CONSTANTES.USER.DELETE_SUCCESSFUL(this.toString(data)), null, 200);
         }
+        await UserModel.delete({ id: id as string });
       }
-      if (deleteResult.affected != null && deleteResult.affected > 0){
-        return this.responseAction(true, CONSTANTES.USER.DELETE_SUCCESSFUL(this.toString(data)), null, 200);
-      }
-      return this.responseAction(true, CONSTANTES.USER.DELETE_ERROR(this.toString(data)), null, 304);
+      return this.responseAction(true, CONSTANTES.USER.DELETE_SUCCESSFUL(this.toString(data)), null, 200);
     } catch (error) {
       if (error instanceof Error) {
         throw this.handleError(error.message);
