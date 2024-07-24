@@ -15,7 +15,6 @@ const Navbar = () => {
 
   const clearLocalStorage = () => {
     localStorage.removeItem('token_user');
-    localStorage.removeItem('user_data');
     if (setOpen) {
       setOpen(false);
     }

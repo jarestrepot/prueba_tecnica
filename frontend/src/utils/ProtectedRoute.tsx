@@ -11,6 +11,7 @@ interface UserContextType {
 }
 
 export const UserContext = createContext<UserContextType>({ user: null });
+
 const ProtectedRoute = ({ path = '/' }: ICanActivatePath) => {
   const [user_storage, , removeUserStorage] = useLocalStorage<{ id: string; token: string }>('token_user');
   const [user, setUser] = useState<User | null>(null);
